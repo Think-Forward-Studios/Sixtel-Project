@@ -40,8 +40,11 @@ jobs:
           B2_APPLICATION_KEY_ID: ${{ secrets.B2_KEY_ID }}
           B2_APPLICATION_KEY: ${{ secrets.B2_APP_KEY }}
         run: |
+          # Bucket name is case-sensitive and must match the real bucket exactly.
+          # It was created as "Sixtel-backups" (capital S).
+          BUCKET=Sixtel-backups
           b2 account authorize "$B2_APPLICATION_KEY_ID" "$B2_APPLICATION_KEY"
-          b2 file upload sixtel-backups sixtel-*.dump "nightly/$(date -u +%Y/%m)/sixtel-$(date -u +%Y-%m-%d).dump"
+          b2 file upload "$BUCKET" sixtel-*.dump "nightly/$(date -u +%Y/%m)/sixtel-$(date -u +%Y-%m-%d).dump"
 
       - name: Cleanup old backups (>30 days)
         env:
