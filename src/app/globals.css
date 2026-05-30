@@ -7,6 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-sixtel-copper: var(--sixtel-copper);
+  --color-sixtel-cream: var(--sixtel-cream);
+  --color-sixtel-ink: var(--sixtel-ink);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-heading);
@@ -81,6 +84,12 @@
   --sidebar-accent-foreground: oklch(0.214 0.009 43.1);
   --sidebar-border: oklch(0.922 0.005 34.3);
   --sidebar-ring: oklch(0.714 0.014 41.2);
+
+  /* Sixtel custom accent tokens — HSL placeholders from the Next.js
+     walkthrough; real brand colors to be set in Block 5. */
+  --sixtel-copper: hsl(25 70% 45%);
+  --sixtel-cream: hsl(38 35% 95%);
+  --sixtel-ink: hsl(25 30% 10%);
 }
 
 .dark {
