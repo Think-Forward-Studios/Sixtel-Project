@@ -8,7 +8,7 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # NOTE: deviates from the walkthrough. Staging runs Postgres 17, and
       # ubuntu-latest's default postgresql-client is v16 — pg_dump 16 cannot
