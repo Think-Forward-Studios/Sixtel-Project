@@ -7,9 +7,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-sixtel-copper: var(--sixtel-copper);
-  --color-sixtel-cream: var(--sixtel-cream);
-  --color-sixtel-ink: var(--sixtel-ink);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-heading);
@@ -51,6 +48,16 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Sixtel custom accent colors — placeholder values from the Next.js
+   walkthrough (real brand colors land in Block 5). Defined in a plain
+   @theme block so Tailwind emits the --color-sixtel-* vars itself and
+   generates bg-/text-/border-sixtel-* utilities. */
+@theme {
+  --color-sixtel-copper: #8A5A44;
+  --color-sixtel-cream: hsl(38 35% 95%);
+  --color-sixtel-ink: hsl(25 30% 10%);
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.147 0.004 49.3);
@@ -84,12 +91,6 @@
   --sidebar-accent-foreground: oklch(0.214 0.009 43.1);
   --sidebar-border: oklch(0.922 0.005 34.3);
   --sidebar-ring: oklch(0.714 0.014 41.2);
-
-  /* Sixtel custom accent tokens — HSL placeholders from the Next.js
-     walkthrough; real brand colors to be set in Block 5. */
-  --sixtel-copper: hsl(25 70% 45%);
-  --sixtel-cream: hsl(38 35% 95%);
-  --sixtel-ink: hsl(25 30% 10%);
 }
 
 .dark {
