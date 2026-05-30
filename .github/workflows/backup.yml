@@ -1,0 +1,49 @@
+name: Nightly DB backup
+on:
+  schedule:
+    - cron: '0 7 * * *'  # 07:00 UTC = 02:00 Central (CDT)
+  workflow_dispatch:  # allow manual runs
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # NOTE: deviates from the walkthrough. Staging runs Postgres 17, and
+      # ubuntu-latest's default postgresql-client is v16 — pg_dump 16 cannot
+      # dump a v17 server. We install pg_dump 17 from the official PGDG repo.
+      - name: Install PostgreSQL 17 client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y postgresql-client-17
+
+      - name: Install B2 CLI
+        run: pipx install b2
+
+      - name: Dump database
+        env:
+          DATABASE_URL: ${{ secrets.STAGING_DB_DIRECT_URL }}
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          pg_dump --no-owner --no-acl --format=custom "$DATABASE_URL" > sixtel-$DATE.dump
+
+      - name: Upload to Backblaze
+        env:
+          B2_APPLICATION_KEY_ID: ${{ secrets.B2_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APP_KEY }}
+        run: |
+          b2 account authorize "$B2_APPLICATION_KEY_ID" "$B2_APPLICATION_KEY"
+          b2 file upload sixtel-backups sixtel-*.dump "nightly/$(date -u +%Y/%m)/sixtel-$(date -u +%Y-%m-%d).dump"
+
+      - name: Cleanup old backups (>30 days)
+        env:
+          B2_APPLICATION_KEY_ID: ${{ secrets.B2_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APP_KEY }}
+        run: |
+          # Manual cleanup script omitted — set B2 lifecycle rules
+          # via the B2 console instead. Lifecycle: keep 14 daily +
+          # 12 monthly, expire the rest.
+          echo "Lifecycle managed by B2 bucket rules."
