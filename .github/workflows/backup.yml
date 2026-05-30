@@ -27,8 +27,13 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.STAGING_DB_DIRECT_URL }}
         run: |
+          # Call pg_dump 17 by absolute path. The default pg_dump on PATH is the
+          # postgresql-common wrapper, which resolved to v16 and aborted with a
+          # server-version mismatch against the Postgres 17 server.
+          PG_DUMP=/usr/lib/postgresql/17/bin/pg_dump
+          "$PG_DUMP" --version
           DATE=$(date -u +%Y-%m-%d)
-          pg_dump --no-owner --no-acl --format=custom "$DATABASE_URL" > sixtel-$DATE.dump
+          "$PG_DUMP" --no-owner --no-acl --format=custom "$DATABASE_URL" > sixtel-$DATE.dump
 
       - name: Upload to Backblaze
         env:
