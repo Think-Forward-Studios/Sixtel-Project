@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -5,8 +6,15 @@ export function StoryStrip() {
   return (
     <section className="bg-sixtel-cream">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center lg:px-8">
-        {/* Placeholder image — real interior/cover photo drops in during Block 5 */}
-        <div className="aspect-[4/3] rounded-lg bg-secondary" />
+        <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-secondary">
+          <Image
+            src="/photos/story.jpg"
+            alt="Inside Sixtel on a busy night"
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </div>
         <div>
           <p className="font-sans text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Our story

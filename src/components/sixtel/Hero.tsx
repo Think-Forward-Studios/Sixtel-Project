@@ -1,11 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden">
-      {/* Placeholder background — real interior photo drops in during Block 5 */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sixtel-ink via-primary to-accent opacity-90" />
+      {/* Background photo (beer flight) + dark scrim for text legibility */}
+      <Image
+        src="/photos/hero.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="-z-20 object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-sixtel-ink/75" />
       <div className="mx-auto max-w-7xl px-4 py-24 text-center text-primary-foreground sm:px-6 md:py-32 lg:px-8">
         <p className="font-sans text-xs uppercase tracking-[0.2em] text-primary-foreground/80">
           Enterprise, Alabama · Since 2019
