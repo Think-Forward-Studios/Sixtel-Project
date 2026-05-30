@@ -1,13 +1,19 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-// Real recurring event types identified from Sixtel's socials.
-const sampleEvents = [
-  { title: "Top Trivia: Name That Tune", date: "Wed evenings", membersOnly: false },
-  { title: "Mini Sixtel Menu Launch — Annie's Cafe Collab", date: "Next weekend", membersOnly: false },
-  { title: "Weekend Wine Slushie Flight", date: "Fri & Sat", membersOnly: false },
+// Real recurring event types from Sixtel's socials, with owned promo/photos.
+const sampleEvents: {
+  title: string;
+  date: string;
+  membersOnly: boolean;
+  image: string;
+}[] = [
+  { title: "Top Trivia: Name That Tune", date: "Wed evenings", membersOnly: false, image: "/photos/events/trivia.jpg" },
+  { title: "Mini Sixtel Menu Launch — Annie's Cafe Collab", date: "Next weekend", membersOnly: false, image: "/photos/events/annies-menu.jpg" },
+  { title: "Weekend Wine Slushie Flight", date: "Fri & Sat", membersOnly: false, image: "/photos/events/slushies.jpg" },
 ];
 
 export function EventsTeaser() {
@@ -30,8 +36,15 @@ export function EventsTeaser() {
       <div className="grid gap-6 md:grid-cols-3">
         {sampleEvents.map((event) => (
           <Card key={event.title} className="overflow-hidden">
-            {/* Placeholder image — event art drops in during Block 5 */}
-            <div className="aspect-video bg-secondary" />
+            <div className="relative aspect-video bg-secondary">
+              <Image
+                src={event.image}
+                alt={event.title}
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className="object-cover"
+              />
+            </div>
             <CardContent className="space-y-3 p-6">
               <p className="text-sm text-muted-foreground">{event.date}</p>
               <h3 className="font-heading text-xl text-sixtel-ink">

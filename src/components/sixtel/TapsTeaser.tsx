@@ -4,19 +4,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-// Real taps from the live Untappd list (May 29, 2026). We have real label
-// art for ORNG + Hey Girl Hey; the others fall back to a cream placeholder.
+// Real taps from the live Untappd list (May 29, 2026), with label/can art.
+// (Orange Crush art is a low-res Untappd thumbnail — swap for higher-res later.)
 const sampleTaps: {
   name: string;
   brewery: string;
   style: string;
   abv: number;
-  image: string | null;
+  image: string;
 }[] = [
-  { name: "Orange Crush", brewery: "Hidden Springs Ale Works", style: "Wheat Beer", abv: 5.2, image: null },
+  { name: "Orange Crush", brewery: "Hidden Springs Ale Works", style: "Wheat Beer", abv: 5.2, image: "/photos/taps/tap-orange-crush.jpg" },
   { name: "ORNG Double IPA", brewery: "Wild Leap Brew Co.", style: "IPA — Hazy", abv: 8.2, image: "/photos/taps/tap-orng.jpg" },
   { name: "Hey Girl Hey!", brewery: "Old Black Bear Brewing Co.", style: "Sour — Berliner Weisse", abv: 4.6, image: "/photos/taps/tap-hey-girl-hey.jpg" },
-  { name: "S'mores Stout", brewery: "Martin House Brewing Company", style: "Stout — Imperial", abv: 9.2, image: null },
+  { name: "S'mores Stout", brewery: "Martin House Brewing Company", style: "Stout — Imperial", abv: 9.2, image: "/photos/taps/tap-smores-stout.jpg" },
 ];
 
 export function TapsTeaser() {
@@ -41,15 +41,13 @@ export function TapsTeaser() {
           <Card key={tap.name}>
             <CardHeader>
               <div className="relative aspect-square w-full overflow-hidden rounded-md bg-sixtel-cream">
-                {tap.image && (
-                  <Image
-                    src={tap.image}
-                    alt={tap.name}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                )}
+                <Image
+                  src={tap.image}
+                  alt={tap.name}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
               </div>
               <CardTitle className="mt-4 font-heading text-xl text-sixtel-ink">
                 {tap.name}
