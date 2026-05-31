@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { MobileNav } from "@/components/layout/MobileNav";
 
 const navLinks = [
   { href: "/taps", label: "Taps" },
@@ -38,10 +39,11 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Button asChild>
             <Link href="/join">Join Rewards</Link>
           </Button>
+          <MobileNav links={navLinks} />
         </div>
       </div>
     </header>
