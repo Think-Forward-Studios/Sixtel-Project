@@ -3,21 +3,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
-// Real recurring event types from Sixtel's socials, with owned promo/photos.
-const sampleEvents: {
-  title: string;
-  date: string;
-  membersOnly: boolean;
-  image: string;
-  // Portrait promo flyers are shown "contain" (whole flyer, dark backdrop)
-  // instead of "cover" so their text isn't cropped by the landscape card.
-  fit?: "cover" | "contain";
-}[] = [
-  { title: "Top Trivia: Name That Tune", date: "Wed evenings", membersOnly: false, image: "/photos/events/trivia.jpg" },
-  { title: "Mini Sixtel Menu Launch — Annie's Cafe Collab", date: "Next weekend", membersOnly: false, image: "/photos/events/annies-menu.jpg", fit: "contain" },
-  { title: "Weekend Wine Slushie Flight", date: "Fri & Sat", membersOnly: false, image: "/photos/events/slushies.jpg" },
-];
+import { events } from "@/lib/events";
 
 export function EventsTeaser() {
   return (
@@ -37,7 +23,7 @@ export function EventsTeaser() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-        {sampleEvents.map((event) => (
+        {events.map((event) => (
           <Card key={event.title} className="overflow-hidden">
             <div
               className={`relative aspect-video ${

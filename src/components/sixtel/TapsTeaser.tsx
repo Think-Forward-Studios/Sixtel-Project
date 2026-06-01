@@ -3,21 +3,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
-// Real taps from the live Untappd list (May 29, 2026), with label/can art.
-// (Orange Crush art is a low-res Untappd thumbnail — swap for higher-res later.)
-const sampleTaps: {
-  name: string;
-  brewery: string;
-  style: string;
-  abv: number;
-  image: string;
-}[] = [
-  { name: "Orange Crush", brewery: "Hidden Springs Ale Works", style: "Wheat Beer", abv: 5.2, image: "/photos/taps/tap-orange-crush.jpg" },
-  { name: "ORNG Double IPA", brewery: "Wild Leap Brew Co.", style: "IPA — Hazy", abv: 8.2, image: "/photos/taps/tap-orng.jpg" },
-  { name: "Hey Girl Hey!", brewery: "Old Black Bear Brewing Co.", style: "Sour — Berliner Weisse", abv: 4.6, image: "/photos/taps/tap-hey-girl-hey.jpg" },
-  { name: "S'mores Stout", brewery: "Martin House Brewing Company", style: "Stout — Imperial", abv: 9.2, image: "/photos/taps/tap-smores-stout.jpg" },
-];
+import { taps } from "@/lib/taps";
 
 export function TapsTeaser() {
   return (
@@ -37,7 +23,7 @@ export function TapsTeaser() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {sampleTaps.map((tap) => (
+        {taps.map((tap) => (
           <Card key={tap.name}>
             <CardHeader>
               <div className="relative aspect-square w-full overflow-hidden rounded-md bg-sixtel-cream">
