@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { MediaPicker } from "@/components/admin/MediaPicker";
 
 const emptyValues: TapFormValues = {
   name: "",
@@ -134,13 +135,23 @@ export function TapEditSheet({
               />
             </Field>
           </div>
-          <Field id="labelImageUrl" label="Label image URL" error={errors.labelImageUrl?.message}>
-            <Input
-              id="labelImageUrl"
-              placeholder="/photos/taps/… or https://…"
-              {...register("labelImageUrl")}
+          <div className="space-y-1.5">
+            <Label htmlFor="labelImageUrl">Label image</Label>
+            <Controller
+              name="labelImageUrl"
+              control={control}
+              render={({ field }) => (
+                <MediaPicker
+                  bucket="tap-list-images"
+                  value={field.value || null}
+                  onChange={(url) => field.onChange(url ?? "")}
+                />
+              )}
             />
-          </Field>
+            {errors.labelImageUrl && (
+              <p className="text-xs text-destructive">{errors.labelImageUrl.message}</p>
+            )}
+          </div>
           <div className="flex items-center gap-2 pt-1">
             <Controller
               name="isVisible"

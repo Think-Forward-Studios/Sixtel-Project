@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { MediaPicker } from "@/components/admin/MediaPicker";
 
 const emptyValues: EventFormValues = {
   title: "",
@@ -118,13 +119,23 @@ export function EventForm({ event }: { event: AdminEvent | null }) {
         </Field>
       </div>
 
-      <Field id="coverImagePath" label="Cover image URL" error={errors.coverImagePath?.message}>
-        <Input
-          id="coverImagePath"
-          placeholder="/photos/events/… or https://…"
-          {...register("coverImagePath")}
+      <div className="space-y-1.5">
+        <Label htmlFor="coverImagePath">Cover image</Label>
+        <Controller
+          name="coverImagePath"
+          control={control}
+          render={({ field }) => (
+            <MediaPicker
+              bucket="event-covers"
+              value={field.value || null}
+              onChange={(url) => field.onChange(url ?? "")}
+            />
+          )}
         />
-      </Field>
+        {errors.coverImagePath && (
+          <p className="text-xs text-destructive">{errors.coverImagePath.message}</p>
+        )}
+      </div>
 
       <Field
         id="externalRsvpUrl"

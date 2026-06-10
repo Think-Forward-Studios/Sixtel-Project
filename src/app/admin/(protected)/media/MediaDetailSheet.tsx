@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { type MediaAsset, mediaPublicUrl, formatBytes } from "@/lib/media-schema";
-import { updateMediaAltText, deleteMediaAsset } from "./actions";
+import { updateMediaAltText, deleteMediaAsset, type MediaRef } from "./actions";
 
 export function MediaDetailSheet({
   asset,
@@ -52,6 +52,7 @@ function DetailContent({
   const [pending, startTransition] = useTransition();
   const [alt, setAlt] = useState(asset.alt_text ?? "");
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [refs, setRefs] = useState<MediaRef[] | null>(null);
   const url = mediaPublicUrl(asset.bucket, asset.storage_path);
 
   const onSaveAlt = () => {
@@ -66,16 +67,20 @@ function DetailContent({
     });
   };
 
-  const onDelete = () => {
+  const onDelete = (force = false) => {
     startTransition(async () => {
-      const res = await deleteMediaAsset(asset.id);
-      if (!res.ok) {
-        toast.error(res.error);
+      const res = await deleteMediaAsset(asset.id, force);
+      if (res.ok) {
+        toast.success("Image deleted.");
+        onClose();
+        router.refresh();
         return;
       }
-      toast.success("Image deleted.");
-      onClose();
-      router.refresh();
+      if ("references" in res) {
+        setRefs(res.references); // in use — surface the references first (§9.5)
+        return;
+      }
+      toast.error(res.error);
     });
   };
 
@@ -134,14 +139,51 @@ function DetailContent({
         </div>
 
         <div className="border-t border-border pt-4">
-          {confirmDelete ? (
+          {refs ? (
+            <div className="space-y-2 text-sm">
+              <p className="text-sixtel-ink">
+                In use by {refs.length} item{refs.length > 1 ? "s" : ""} — deleting removes
+                the image from {refs.length > 1 ? "them" : "it"}:
+              </p>
+              <ul className="list-inside list-disc text-muted-foreground">
+                {refs.map((r) => (
+                  <li key={`${r.kind}-${r.id}`}>
+                    {r.kind}: {r.title}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="destructive"
+                  onClick={() => onDelete(true)}
+                  disabled={pending}
+                >
+                  {pending ? <Loader2Icon className="size-4 animate-spin" /> : "Delete anyway"}
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    setRefs(null);
+                    setConfirmDelete(false);
+                  }}
+                  disabled={pending}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : confirmDelete ? (
             <div className="flex items-center gap-2 text-sm">
               <span className="text-muted-foreground">Delete the image and its file?</span>
               <Button
                 type="button"
                 size="sm"
                 variant="destructive"
-                onClick={onDelete}
+                onClick={() => onDelete()}
                 disabled={pending}
               >
                 {pending ? <Loader2Icon className="size-4 animate-spin" /> : "Yes, delete"}
