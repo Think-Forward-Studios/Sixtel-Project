@@ -1,11 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { taps } from "@/lib/taps";
 
-export function TapsTeaser() {
+import { Button } from "@/components/ui/button";
+import { TapCard } from "@/components/sixtel/TapCard";
+import { getVisibleTaps } from "@/lib/taps-data";
+
+export async function TapsTeaser() {
+  const taps = await getVisibleTaps();
+  const featured = taps.slice(0, 4);
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div className="mb-10 flex items-end justify-between">
@@ -14,41 +16,23 @@ export function TapsTeaser() {
             On Tap Right Now
           </h2>
           <p className="mt-2 text-muted-foreground">
-            12 rotating taps. Updated as we change the lineup.
+            Rotating taps. Updated as we change the lineup.
           </p>
         </div>
         <Button asChild variant="ghost">
-          <Link href="/taps">See all 12 →</Link>
+          <Link href="/taps">See the full list →</Link>
         </Button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {taps.map((tap) => (
-          <Card key={tap.name}>
-            <CardHeader>
-              <div className="relative aspect-square w-full overflow-hidden rounded-md bg-sixtel-cream">
-                <Image
-                  src={tap.image}
-                  alt={tap.name}
-                  fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <CardTitle className="mt-4 font-heading text-xl text-sixtel-ink">
-                {tap.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <p className="text-sm text-muted-foreground">{tap.brewery}</p>
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary">{tap.style}</Badge>
-                <Badge>{tap.abv}% ABV</Badge>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {featured.length > 0 ? (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((tap) => (
+            <TapCard key={tap.id} tap={tap} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-muted-foreground">Tap list coming soon.</p>
+      )}
     </section>
   );
 }
