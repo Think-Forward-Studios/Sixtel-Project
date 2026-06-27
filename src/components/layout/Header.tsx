@@ -1,15 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
-
-const navLinks = [
-  { href: "/taps", label: "Taps" },
-  { href: "/events", label: "Events" },
-  { href: "/rewards", label: "Rewards" },
-  { href: "/story", label: "Story" },
-  { href: "/visit", label: "Visit" },
-];
+import { DesktopNav } from "@/components/layout/DesktopNav";
+import { NAV_LINKS } from "@/lib/nav";
 
 export function Header() {
   return (
@@ -27,23 +22,13 @@ export function Header() {
           <span className="font-heading text-lg text-sixtel-ink">Sixtel</span>
         </Link>
 
-        <nav className="hidden gap-6 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        <DesktopNav />
 
         <div className="flex items-center gap-2">
           <Button asChild>
             <Link href="/join">Join Rewards</Link>
           </Button>
-          <MobileNav links={navLinks} />
+          <MobileNav links={NAV_LINKS} />
         </div>
       </div>
     </header>

@@ -1,19 +1,26 @@
 import { AnnouncementBanner } from "@/components/sixtel/AnnouncementBanner";
 import { Hero } from "@/components/sixtel/Hero";
-import { TapsTeaser } from "@/components/sixtel/TapsTeaser";
-import { StoryStrip } from "@/components/sixtel/StoryStrip";
-import { EventsTeaser } from "@/components/sixtel/EventsTeaser";
-import { VisitStrip } from "@/components/sixtel/VisitStrip";
+import { TapsSection } from "@/components/sixtel/TapsSection";
+import { EventsSection } from "@/components/sixtel/EventsSection";
+import { RewardsSection } from "@/components/sixtel/RewardsSection";
+import { StorySection } from "@/components/sixtel/StorySection";
+import { VisitSection } from "@/components/sixtel/VisitSection";
 
+// Single-page marketing home: each top-nav item scroll-jumps to one of these
+// sections (`/#taps`, `/#events`, …). The former standalone routes now
+// 301-redirect to the matching anchor (see next.config.ts). AnnouncementBanner
+// stays above the Hero — it's the documented thin top band and returns null when
+// nothing is active.
 export default function Home() {
   return (
     <>
       <AnnouncementBanner />
       <Hero />
-      <TapsTeaser />
-      <StoryStrip />
-      <EventsTeaser />
-      <VisitStrip />
+      <TapsSection />
+      <EventsSection />
+      <RewardsSection />
+      <StorySection />
+      <VisitSection />
     </>
   );
 }

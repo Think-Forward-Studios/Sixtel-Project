@@ -137,9 +137,8 @@ export async function deleteMediaAsset(id: string, force = false): Promise<Delet
 
   revalidatePath("/admin/media");
   if (refs.length > 0) {
+    // Single-page site: the Taps + Events sections render on "/".
     revalidatePath("/");
-    revalidatePath("/taps");
-    revalidatePath("/events");
   }
   return { ok: true };
 }

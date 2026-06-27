@@ -17,10 +17,10 @@ export function Footer() {
             Explore
           </p>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/taps">On tap</Link></li>
-            <li><Link href="/events">Events</Link></li>
-            <li><Link href="/rewards">Rewards</Link></li>
-            <li><Link href="/story">Story</Link></li>
+            <li><Link href="/#taps">On tap</Link></li>
+            <li><Link href="/#events">Events</Link></li>
+            <li><Link href="/#rewards">Rewards</Link></li>
+            <li><Link href="/#story">Story</Link></li>
           </ul>
         </div>
         <div>

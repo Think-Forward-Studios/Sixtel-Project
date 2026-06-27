@@ -1,5 +1,5 @@
 // Canonical contact + hours + socials for Sixtel Bottle & Growler House.
-// Single source of truth so VisitStrip, /visit, and other pages stay in sync.
+// Single source of truth so the Visit section and other surfaces stay in sync.
 
 export const VISIT = {
   addressLine: "210 N. Main Street",

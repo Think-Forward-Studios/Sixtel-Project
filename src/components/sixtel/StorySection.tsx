@@ -1,24 +1,21 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  title: "Our Story",
-  description:
-    "Sixtel Bottle & Growler House — woman-owned, veteran-owned, and built for Enterprise, Alabama since 2019.",
-};
-
-export default function StoryPage() {
+// "Story" section of the single-page home.
+export function StorySection() {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:py-24">
+    <section
+      id="story"
+      className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:py-24"
+    >
       <p className="font-sans text-xs uppercase tracking-[0.2em] text-muted-foreground">
         Our story
       </p>
-      <h1 className="mt-4 font-heading text-3xl text-sixtel-ink md:text-4xl">
+      <h2 className="mt-4 font-heading text-3xl text-sixtel-ink md:text-4xl">
         Woman-owned. Veteran-owned. Built for Enterprise.
-      </h1>
+      </h2>
 
       <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-lg bg-secondary">
         <Image
@@ -50,7 +47,7 @@ export default function StoryPage() {
 
       <div className="mt-10 flex flex-wrap gap-4">
         <Button asChild>
-          <Link href="/visit">Come see us</Link>
+          <Link href="/#visit">Come see us</Link>
         </Button>
         <Button asChild variant="outline">
           <Link href="/join">Join Sixtel Rewards</Link>

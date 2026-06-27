@@ -12,10 +12,10 @@ import {
 
 export type TapActionResult = { ok: true } | { ok: false; error: string };
 
-// Refresh the public surfaces (home teaser + /taps) and the admin list.
+// Refresh the public home (Taps section) and the admin list. The marketing site
+// is single-page now, so the tap list renders on "/" (no standalone /taps).
 function revalidateTaps() {
   revalidatePath("/");
-  revalidatePath("/taps");
   revalidatePath("/admin/taps");
 }
 

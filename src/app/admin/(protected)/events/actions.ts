@@ -14,10 +14,10 @@ export type EventActionResult =
   | { ok: true; id?: string }
   | { ok: false; error: string };
 
-// Refresh the public surfaces (home teaser + /events) and the admin list.
+// Refresh the public home (Events section) and the admin list. The marketing site
+// is single-page now, so events render on "/" (no standalone /events).
 function revalidateEvents() {
   revalidatePath("/");
-  revalidatePath("/events");
   revalidatePath("/admin/events");
 }
 

@@ -135,6 +135,11 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
+  }
+  /* Sticky-header offset so in-page anchors (single-page nav) don't land under
+     the h-16 (64px) header. Scoped to the home sections, which carry ids. */
+  section[id] {
+    scroll-margin-top: 4rem;
   }
 }

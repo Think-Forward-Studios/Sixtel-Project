@@ -52,7 +52,7 @@ export const getPublishedEvents = unstable_cache(
   { tags: [EVENTS_CACHE_TAG], revalidate: 30 }
 );
 
-/** Upcoming published events (starts_at >= now), soonest-first — for the home teaser. */
+/** Upcoming published events (starts_at >= now), soonest-first — for the home Events section. */
 export async function getUpcomingEvents(limit?: number): Promise<PublicEvent[]> {
   const now = Date.now();
   const upcoming = (await getPublishedEvents()).filter(

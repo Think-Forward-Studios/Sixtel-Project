@@ -17,7 +17,7 @@ export type PublicTap = {
 export const TAPS_CACHE_TAG = "taps";
 
 /**
- * Visible taps for the public site (home teaser + /taps), ordered by position.
+ * Visible taps for the public site (home Taps section), ordered by position.
  * Cached + tagged so the marketing pages stay static and refresh when an admin
  * edits the list (via revalidateTag / revalidatePath in the admin actions).
  */

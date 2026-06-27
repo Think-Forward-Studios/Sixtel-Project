@@ -1,14 +1,6 @@
-import type { Metadata } from "next";
-
 import { TapCard } from "@/components/sixtel/TapCard";
 import { getVisibleTaps } from "@/lib/taps-data";
 import { SOCIALS } from "@/lib/site";
-
-export const metadata: Metadata = {
-  title: "On Tap",
-  description:
-    "The current tap list, growler & crowler fills, wine slushies, and soft-serve margaritas at Sixtel in Enterprise, Alabama.",
-};
 
 const extras = [
   {
@@ -29,14 +21,18 @@ const extras = [
   },
 ];
 
-export default async function TapsPage() {
+// "Taps" section of the single-page home — the full visible tap list + extras.
+export async function TapsSection() {
   const taps = await getVisibleTaps();
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-      <h1 className="font-heading text-3xl text-sixtel-ink md:text-4xl">
+    <section
+      id="taps"
+      className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+    >
+      <h2 className="font-heading text-3xl text-sixtel-ink md:text-4xl">
         On Tap
-      </h1>
+      </h2>
       <p className="mt-2 max-w-2xl text-muted-foreground">
         Our current lineup, updated as we change it. For check-ins and ratings,
         find us on{" "}
@@ -64,13 +60,13 @@ export default async function TapsPage() {
       )}
 
       <div className="mt-16">
-        <h2 className="font-heading text-2xl text-sixtel-ink">More than beer</h2>
+        <h3 className="font-heading text-2xl text-sixtel-ink">More than beer</h3>
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {extras.map((item) => (
             <div key={item.title}>
-              <h3 className="font-heading text-lg text-sixtel-ink">
+              <h4 className="font-heading text-lg text-sixtel-ink">
                 {item.title}
-              </h3>
+              </h4>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {item.body}
               </p>

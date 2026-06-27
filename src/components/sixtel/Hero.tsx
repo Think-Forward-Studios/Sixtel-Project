@@ -32,7 +32,7 @@ export function Hero() {
             <Link href="/join">Join Sixtel Rewards</Link>
           </Button>
           <Button asChild size="lg" variant="secondary">
-            <Link href="/taps">See what&apos;s pouring</Link>
+            <Link href="/#taps">See what&apos;s pouring</Link>
           </Button>
         </div>
       </div>
